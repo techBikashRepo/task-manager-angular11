@@ -10,6 +10,6 @@ export class ProjectsService {
   constructor(private httpClient: HttpClient) {}
 
   getAllProjects(): Observable<Project[]> {
-    return this.httpClient.get<Project[]>('/api/projects');
+    return this.httpClient.get<Project[]>('http://localhost:9090/api/projects');
   }
 }
