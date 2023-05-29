@@ -10,20 +10,31 @@ export class ProjectsService {
   constructor(private httpClient: HttpClient) {}
 
   getAllProjects(): Observable<Project[]> {
-    return this.httpClient.get<Project[]>('http://localhost:9090/api/projects');
+    return this.httpClient.get<Project[]>(
+      'http://localhost:9090/api/projects',
+      { responseType: 'json' }
+    );
   }
 
   insertProjects(newProject: Project): Observable<Project> {
     return this.httpClient.post<Project>(
       'http://localhost:9090/api/projects',
-      newProject
+      newProject,
+      { responseType: 'json' }
     );
   }
 
   updateProjects(existingProject: Project): Observable<Project> {
     return this.httpClient.put<Project>(
       'http://localhost:9090/api/projects',
-      existingProject
+      existingProject,
+      { responseType: 'json' }
+    );
+  }
+
+  deleteProjects(projectID: number): Observable<string> {
+    return this.httpClient.delete<string>(
+      'http://localhost:9090/api/projects?ProjectID=' + projectID
     );
   }
 }

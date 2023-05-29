@@ -14,6 +14,9 @@ export class ProjectsComponent implements OnInit {
   editProject: Project = new Project();
   editIndex: any = null;
 
+  deleteProject: Project = new Project();
+  deleteIndex: any = null;
+
   constructor(private projectsService: ProjectsService) {}
 
   ngOnInit(): void {
@@ -64,6 +67,29 @@ export class ProjectsComponent implements OnInit {
         this.editProject.projectName = null;
         this.editProject.dateOfStart = null;
         this.editProject.teamSize = null;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  onDeleteClick(event: any, index: number) {
+    this.deleteIndex = index;
+    this.deleteProject.projectID = this.projects[index].projectID;
+    this.deleteProject.projectName = this.projects[index].projectName;
+    this.deleteProject.dateOfStart = this.projects[index].dateOfStart;
+    this.deleteProject.teamSize = this.projects[index].teamSize;
+  }
+
+  onDeleteConfirmClick() {
+    this.projectsService.deleteProjects(this.deleteProject.projectID).subscribe(
+      (response) => {
+        this.projects.splice(this.deleteIndex, 1);
+        this.deleteProject.projectID = null;
+        this.deleteProject.projectName = null;
+        this.deleteProject.dateOfStart = null;
+        this.deleteProject.teamSize = null;
       },
       (error) => {
         console.log(error);
