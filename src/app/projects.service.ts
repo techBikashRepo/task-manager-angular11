@@ -19,4 +19,11 @@ export class ProjectsService {
       newProject
     );
   }
+
+  updateProjects(existingProject: Project): Observable<Project> {
+    return this.httpClient.put<Project>(
+      'http://localhost:9090/api/projects',
+      existingProject
+    );
+  }
 }
